@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:qrscan/screens/main_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:qrscan/models/students.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load();
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+
+  Hive.registerAdapter(StudentsAdapter());
   runApp(const MyApp());
 }
 

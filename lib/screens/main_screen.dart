@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qrscan/widgets/heading.dart';
+import 'package:qrscan/screens/qr_scanner.dart';
+import 'package:qrscan/utils/sync_db.dart';
+import 'package:qrscan/widgets/sync_button.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -73,7 +76,9 @@ class MainScreen extends StatelessWidget {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    // Navigate to scanner screen
+                    Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                      return const QrScanner();
+                    }));
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
@@ -136,24 +141,7 @@ class MainScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
-                OutlinedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.sync),
-                  label: const Text("Sync Now"),
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 15,
-                    ),
-                    textStyle: TextStyle(
-                      fontSize: 18,
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      fontFamily: GoogleFonts.inter(
-                        fontWeight: FontWeight.w600,
-                      ).fontFamily,
-                    ),
-                  ),
-                ),
+                SyncButton(onSync: syncDatabase),
               ],
             ),
           ),
